@@ -228,13 +228,19 @@ function setETA(minutes){
     ".eta-buttons button"
   );
 
-  buttons.forEach(
-    btn=>{
-      btn.style.opacity = .5;
-    }
-  );
+  buttons.forEach(btn=>{
 
-  event.target.style.opacity = 1;
+    btn.style.opacity = .5;
+
+    if(
+      btn.innerText.includes(
+        minutes
+      )
+    ){
+      btn.style.opacity = 1;
+    }
+
+  });
 
   showToast(
     `${minutes} mins selected`
@@ -248,7 +254,15 @@ function setETA(minutes){
 function startTracking(){
 
   nextScreen(8);
-setTimeout(initMap,300);
+setTimeout(()=>{
+
+  initMap();
+
+  if(map){
+    map.invalidateSize();
+  }
+
+},500);
 
   let seconds =
   selectedETA * 60;
