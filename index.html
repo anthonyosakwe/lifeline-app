@@ -11,20 +11,7 @@
 
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#081120">
-
-  <link rel="stylesheet" href="style.css">
-<link rel="apple-touch-icon"
-href="assets/icon-192.png">
-
-<meta
-name="apple-mobile-web-app-capable"
-content="yes">
-
-<meta
-name="apple-mobile-web-app-status-bar-style"
-content="black-translucent">
-
-  <link
+<link
 rel="stylesheet"
 href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
 />
@@ -32,6 +19,22 @@ href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
 <script
 src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
 </script>
+<link
+rel="apple-touch-icon"
+href="assets/icon-192.png"
+>
+
+<meta
+name="apple-mobile-web-app-capable"
+content="yes"
+>
+
+<meta
+name="apple-mobile-web-app-status-bar-style"
+content="black-translucent"
+>
+
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -384,6 +387,53 @@ src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
         </div>
 
       </section>
+<!-- SCREEN 7 -->
+<section class="screen" id="screen7">
+
+  <div class="content">
+
+    <h2>
+      Share Trip
+    </h2>
+
+    <input
+      type="text"
+      placeholder="Current Location"
+    >
+
+    <input
+      type="text"
+      placeholder="Destination"
+    >
+
+    <div class="eta-buttons">
+
+      <button onclick="setETA(15)">
+        15 min
+      </button>
+
+      <button onclick="setETA(30)">
+        30 min
+      </button>
+
+      <button onclick="setETA(60)">
+        60 min
+      </button>
+
+    </div>
+
+    <button
+      class="primary-btn"
+      onclick="startTracking()"
+    >
+      Share With Contacts
+    </button>
+
+  </div>
+
+</section>
+
+<!-- SCREEN 8 -->
 <section class="screen" id="screen8">
 
   <div class="content">
@@ -405,11 +455,16 @@ src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
 
       <div>
         <small>Status</small>
-        <h3>
-          LIVE
-        </h3>
+        <h3>LIVE</h3>
       </div>
 
+    </div>
+
+    <div
+      class="timer"
+      id="timer"
+    >
+      30:00
     </div>
 
     <button
@@ -422,6 +477,103 @@ src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
   </div>
 
 </section>
+
+<!-- SCREEN 9 -->
+<section class="screen" id="screen9">
+
+  <div class="content">
+
+    <h2>
+      You're Safe!
+    </h2>
+
+    <p>
+      Contacts notified.
+    </p>
+
+    <button
+      class="primary-btn"
+      onclick="nextScreen(6)"
+    >
+      Back Home
+    </button>
+
+  </div>
+
+</section>
+
+<!-- SCREEN 10 -->
+<section class="screen" id="screen10">
+
+  <div class="content">
+
+    <h2>
+      SOS Activated
+    </h2>
+
+    <div
+      class="timer"
+      id="sosTimer"
+    >
+      2:45
+    </div>
+
+    <button
+      class="primary-btn"
+      onclick="cancelSOS()"
+    >
+      I'm Safe — Cancel
+    </button>
+
+  </div>
+
+</section>
+
+<!-- SCREEN 11 -->
+<section class="screen" id="screen11">
+
+  <div class="content">
+
+    <h2>
+      Contact Alert
+    </h2>
+
+    <p>
+      Ada triggered SOS
+    </p>
+
+    <button class="primary-btn">
+      Call Ada
+    </button>
+
+  </div>
+
+</section>
+
+<!-- SCREEN 12 -->
+<section class="screen" id="screen12">
+
+  <div class="content">
+
+    <h2>
+      Emergency Resolved
+    </h2>
+
+    <p>
+      Contacts notified.
+    </p>
+
+    <button
+      class="primary-btn"
+      onclick="nextScreen(6)"
+    >
+      Back Home
+    </button>
+
+  </div>
+
+</section>
+
     </main>
 
   </div>
