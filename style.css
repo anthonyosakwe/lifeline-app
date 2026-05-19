@@ -202,7 +202,7 @@ box-sizing:border-box;
 
   display:flex;
   flex-direction:column;
-  justify-content:center;
+  justify-content:flex-start;
 
   width:100%;
   overflow:hidden;
@@ -732,15 +732,19 @@ circle:first-child{
 .content{
   width:100%;
   overflow-x:hidden;
+
+  display:flex;
+  flex-direction:column;
+
+  gap:16px;
+}
+.status-card{
+  margin-top:12px;
 }
 
-button,
-input,
-.glass-card,
-.contact-card{
-  max-width:100%;
+body{
+  overflow-x:hidden;
 }
-
 .phone-frame,
 .screen,
 .content{
@@ -749,6 +753,35 @@ input,
 
 body{
   overflow-x:hidden;
+}
+/* HOME SCREEN FIX */
+
+#screen6{
+  z-index:50;
+}
+
+#screen6 .content{
+  position:relative;
+  z-index:100;
+}
+
+#screen6 .safe-btn{
+  position:relative;
+  z-index:999;
+  pointer-events:auto;
+}
+
+#screen6 .sos-btn{
+  position:relative;
+  z-index:1;
+}
+
+/* prevent hidden screens intercepting taps */
+
+.screen:not(.active){
+  pointer-events:none !important;
+  visibility:hidden !important;
+  opacity:0 !important;
 }
 
 .tracking-card{
