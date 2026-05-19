@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LifeLine</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app-shell">
+  <div class="phone-frame">
+
+    <!-- SCREEN 1 -->
+    <section class="screen active" id="screen1">
+      <div class="center">
+        <h1 class="logo">LIFELINE</h1>
+        <p>Safety · Check-in</p>
+        <button onclick="nextScreen(2)">Get Started</button>
+      </div>
+    </section>
+
+    <!-- SCREEN 2 -->
+    <section class="screen" id="screen2">
+      <div class="content">
+        <h2>Your safety, proactively</h2>
+        <p>LifeLine keeps your trusted contacts informed before emergencies happen.</p>
+        <button onclick="nextScreen(3)">Continue</button>
+      </div>
+    </section>
+
+    <!-- SCREEN 3 OTP -->
+    <section class="screen" id="screen3">
+      <div class="content">
+        <h2>Enter your number</h2>
+        <input type="text" placeholder="+234 812 345 6789">
+
+        <h3>OTP Verification</h3>
+        <div class="otp-boxes">
+          <input maxlength="1">
+          <input maxlength="1">
+          <input maxlength="1">
+        </div>
+
+        <button onclick="nextScreen(4)">Verify</button>
+      </div>
+    </section>
+
+    <!-- SCREEN 4 -->
+    <section class="screen" id="screen4">
+      <div class="content">
+        <h2>Share your journey</h2>
+        <p>Set destination + ETA. Contacts get live tracking.</p>
+        <button onclick="nextScreen(5)">Continue</button>
+      </div>
+    </section>
+
+    <!-- SCREEN 5 -->
+    <section class="screen" id="screen5">
+      <div class="content">
+        <h2>Trusted Contacts</h2>
+
+        <div class="card">
+          <strong>Amaka Obi</strong><br>
+          Sister ✓
+        </div>
+
+        <div class="card">
+          <strong>Tunde James</strong><br>
+          Friend ✓
+        </div>
+
+        <button onclick="nextScreen(6)">Finish Setup</button>
+      </div>
+    </section>
+
+    <!-- SCREEN 6 HOME -->
+    <section class="screen" id="screen6">
+      <div class="content">
+        <h2>Good Evening, Ada</h2>
+
+        <button class="safe-btn" onclick="nextScreen(7)">
+          Start Safe Arrival
+        </button>
+
+        <button id="sosBtn" class="sos-btn">
+          HOLD 3s FOR SOS
+        </button>
+      </div>
+    </section>
+
+    <!-- SCREEN 7 -->
+    <section class="screen" id="screen7">
+      <div class="content">
+        <h2>Share Trip</h2>
+
+        <input type="text" value="Current Location">
+        <input type="text" value="Home, Yaba Lagos">
+
+        <div class="eta-buttons">
+          <button onclick="setETA(15)">15 min</button>
+          <button onclick="setETA(30)">30 min</button>
+          <button onclick="setETA(60)">60 min</button>
+        </div>
+
+        <button onclick="startTracking()">
+          Share With Contacts
+        </button>
+      </div>
+    </section>
+
+    <!-- SCREEN 8 -->
+    <section class="screen" id="screen8">
+      <div class="content">
+        <h2>Live Tracking</h2>
+
+        <div class="timer" id="timer">
+          30:00
+        </div>
+
+        <p>2 Contacts watching</p>
+
+        <button onclick="arrivedSafely()">
+          I've Arrived Safely
+        </button>
+      </div>
+    </section>
+
+    <!-- SCREEN 9 -->
+    <section class="screen" id="screen9">
+      <div class="content">
+        <h2 class="success">You're Safe!</h2>
+        <p>Contacts notified.</p>
+        <button onclick="nextScreen(6)">
+          Back Home
+        </button>
+      </div>
+    </section>
+
+    <!-- SCREEN 10 -->
+    <section class="screen" id="screen10">
+      <div class="content">
+        <h2 class="danger">SOS ACTIVATED</h2>
+
+        <div class="timer" id="sosTimer">
+          2:45
+        </div>
+
+        <p>Alert sent to 2 contacts.</p>
+
+        <button onclick="cancelSOS()">
+          I'm Safe — Cancel
+        </button>
+      </div>
+    </section>
+
+    <!-- SCREEN 11 -->
+    <section class="screen" id="screen11">
+      <div class="content">
+        <h2>SOS ALERT</h2>
+        <p>Ada Umeh · Herbert Macaulay, Yaba</p>
+
+        <button>Call Ada</button>
+        <button>Message</button>
+        <button onclick="nextScreen(12)">
+          Escalate
+        </button>
+      </div>
+    </section>
+
+    <!-- SCREEN 12 -->
+    <section class="screen" id="screen12">
+      <div class="content">
+        <h2 class="success">Emergency Resolved</h2>
+        <p>All alerts cancelled.</p>
+
+        <button onclick="nextScreen(6)">
+          Back Home
+        </button>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
