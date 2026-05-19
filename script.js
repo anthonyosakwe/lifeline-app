@@ -248,6 +248,7 @@ function setETA(minutes){
 function startTracking(){
 
   nextScreen(8);
+setTimeout(initMap,300);
 
   let seconds =
   selectedETA * 60;
@@ -621,3 +622,73 @@ window.addEventListener(
 
   }
 );
+let map;
+let marker;
+
+function initMap(){
+
+  if(map) return;
+
+  map = L.map("map")
+  .setView(
+    [6.5244,3.3792],
+    15
+  );
+
+  L.tileLayer(
+    "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+    {
+      maxZoom:19
+    }
+  ).addTo(map);
+
+  marker = L.marker(
+    [6.5244,3.3792]
+  ).addTo(map);
+
+  getLiveLocation();
+}
+
+function getLiveLocation(){
+
+  if(
+    navigator.geolocation
+  ){
+
+    navigator.geolocation
+    .watchPosition(
+
+      position=>{
+
+        const lat =
+        position.coords.latitude;
+
+        const lng =
+        position.coords.longitude;
+
+        map.setView(
+          [lat,lng],
+          16
+        );
+
+        marker.setLatLng(
+          [lat,lng]
+        );
+
+      },
+
+      error=>{
+
+        showToast(
+          "Location unavailable"
+        );
+
+      },
+
+      {
+        enableHighAccuracy:true
+      }
+
+    );
+  }
+}
