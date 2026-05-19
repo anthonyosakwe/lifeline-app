@@ -1,40 +1,379 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8"/>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  />
+
   <title>LifeLine</title>
+
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#081120">
+
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
+<div class="ambient-bg"></div>
+
 <div class="app-shell">
+
   <div class="phone-frame">
 
-    <!-- SCREEN 1 -->
-    <section class="screen active" id="screen1">
-      <div class="center">
-        <h1 class="logo">LIFELINE</h1>
-        <p>Safety · Check-in</p>
-        <button onclick="nextScreen(2)">Get Started</button>
+    <!-- STATUS BAR -->
+    <div class="status-bar">
+      <span id="clock">9:41</span>
+
+      <div class="status-icons">
+        <span>LTE</span>
+        <span>📶</span>
+        <span>🔋</span>
       </div>
-    </section>
+    </div>
 
-    <!-- SCREEN 2 -->
-    <section class="screen" id="screen2">
-      <div class="content">
-        <h2>Your safety, proactively</h2>
-        <p>LifeLine keeps your trusted contacts informed before emergencies happen.</p>
-        <button onclick="nextScreen(3)">Continue</button>
-      </div>
-    </section>
+    <!-- NAV INDICATOR -->
+    <div class="top-indicator"></div>
 
-    <!-- SCREEN 3 OTP -->
-    <section class="screen" id="screen3">
-      <div class="content">
-        <h2>Enter your number</h2>
-        <input type="text" placeholder="+234 812 345 6789">
+    <!-- SCREEN CONTAINER -->
+    <main id="screenContainer">
 
+      <!-- SCREEN 1 -->
+      <section class="screen active" id="screen1">
+
+        <div class="center splash">
+
+          <div class="logo-wrap">
+            <div class="pulse-ring"></div>
+            <div class="logo-icon">🛡</div>
+          </div>
+
+          <h1 class="logo">
+            LIFELINE
+          </h1>
+
+          <p class="subtitle">
+            Fast, private & reliable
+            safety communication
+          </p>
+
+          <button
+            class="primary-btn"
+            onclick="nextScreen(2)"
+          >
+            Get Started
+          </button>
+
+        </div>
+
+      </section>
+
+      <!-- SCREEN 2 -->
+      <section class="screen" id="screen2">
+
+        <div class="content">
+
+          <span class="step">
+            01 / 03
+          </span>
+
+          <h2>
+            Your safety,
+            proactively
+          </h2>
+
+          <p>
+            LifeLine keeps your trusted
+            contacts informed before
+            emergencies happen.
+          </p>
+
+          <div class="glass-card info-card">
+            <div class="card-icon">
+              🛡
+            </div>
+
+            <div>
+              <strong>
+                Prevention-first safety
+              </strong>
+
+              <small>
+                Stay protected before
+                emergencies happen.
+              </small>
+            </div>
+          </div>
+
+          <div class="button-group">
+
+            <button
+              class="ghost-btn"
+              onclick="nextScreen(6)"
+            >
+              Skip
+            </button>
+
+            <button
+              class="primary-btn"
+              onclick="nextScreen(3)"
+            >
+              Continue
+            </button>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- SCREEN 3 OTP -->
+      <section class="screen" id="screen3">
+
+        <div class="content">
+
+          <span class="step">
+            02 / 03
+          </span>
+
+          <h2>
+            Verify your identity
+          </h2>
+
+          <p>
+            We'll send a secure OTP
+            to verify your account.
+          </p>
+
+          <input
+            class="phone-input"
+            type="text"
+            placeholder="+234 812 345 6789"
+          >
+
+          <div class="otp-wrapper">
+
+            <input maxlength="1" class="otp-digit">
+            <input maxlength="1" class="otp-digit">
+            <input maxlength="1" class="otp-digit">
+            <input maxlength="1" class="otp-digit">
+            <input maxlength="1" class="otp-digit">
+            <input maxlength="1" class="otp-digit">
+
+          </div>
+
+          <div class="otp-meta">
+
+            <small id="resendTimer">
+              Resend in 00:48
+            </small>
+
+            <button
+              class="text-btn"
+              id="resendBtn"
+            >
+              Resend OTP
+            </button>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- SCREEN 4 -->
+      <section class="screen" id="screen4">
+
+        <div class="content">
+
+          <span class="step">
+            03 / 03
+          </span>
+
+          <h2>
+            Share your journey
+          </h2>
+
+          <p>
+            Add destination + ETA.
+            Trusted contacts receive
+            live tracking.
+          </p>
+
+          <div class="feature-grid">
+
+            <div class="glass-card">
+              📍 Live GPS
+            </div>
+
+            <div class="glass-card">
+              ⏱ ETA Tracking
+            </div>
+
+            <div class="glass-card">
+              🔒 Encrypted
+            </div>
+
+            <div class="glass-card">
+              🚨 SOS Backup
+            </div>
+
+          </div>
+
+          <button
+            class="primary-btn"
+            onclick="nextScreen(5)"
+          >
+            Continue
+          </button>
+
+        </div>
+
+      </section>
+
+      <!-- SCREEN 5 -->
+      <section class="screen" id="screen5">
+
+        <div class="content">
+
+          <h2>
+            Trusted Contacts
+          </h2>
+
+          <div class="contact-card">
+
+            <div class="avatar teal">
+              AM
+            </div>
+
+            <div>
+              <strong>
+                Amaka Obi
+              </strong>
+              <small>Sister</small>
+            </div>
+
+            <span class="verified">
+              ✓
+            </span>
+
+          </div>
+
+          <div class="contact-card">
+
+            <div class="avatar mint">
+              TJ
+            </div>
+
+            <div>
+              <strong>
+                Tunde James
+              </strong>
+              <small>Friend</small>
+            </div>
+
+            <span class="verified">
+              ✓
+            </span>
+
+          </div>
+
+          <button class="outline-btn">
+            + Add Contact
+          </button>
+
+          <button
+            class="primary-btn"
+            onclick="nextScreen(6)"
+          >
+            Finish Setup
+          </button>
+
+        </div>
+
+      </section>
+
+      <!-- SCREEN 6 HOME -->
+      <section class="screen" id="screen6">
+
+        <div class="content">
+
+          <small class="welcome">
+            Good evening
+          </small>
+
+          <h2>
+            Ada 👋
+          </h2>
+
+          <div class="glass-card status-card">
+
+            <span>
+              Safe Status
+            </span>
+
+            <strong class="safe-text">
+              SAFE
+            </strong>
+
+          </div>
+
+          <button
+            class="safe-btn"
+            onclick="nextScreen(7)"
+          >
+            Start Safe Arrival
+          </button>
+
+          <button
+            id="sosBtn"
+            class="sos-btn"
+          >
+
+            <div class="hold-ring">
+
+              <svg>
+                <circle
+                  cx="50"
+                  cy="50"
+                  r="44"
+                ></circle>
+
+                <circle
+                  id="progressCircle"
+                  cx="50"
+                  cy="50"
+                  r="44"
+                ></circle>
+
+              </svg>
+
+              <span>
+                HOLD
+              </span>
+
+            </div>
+
+            <small>
+              Hold 3s for emergency
+            </small>
+
+          </button>
+
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
         <h3>OTP Verification</h3>
         <div class="otp-boxes">
           <input maxlength="1">
