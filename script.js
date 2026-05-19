@@ -16,14 +16,28 @@ const HOLD_DURATION = 3000;
    SCREEN TRANSITIONS
 ========================= */
 
-function nextScreen(id) {
-  const current = document.querySelector(".screen.active");
-  const next = document.getElementById(`screen${id}`);
+function nextScreen(id){
 
-  if (!next) return;
+  const current =
+    document.querySelector(
+      ".screen.active"
+    );
 
-  current?.classList.remove("active");
-  next.classList.add("active");
+  const next =
+    document.getElementById(
+      `screen${id}`
+    );
+
+  if(!next) return;
+
+  current?.classList.remove(
+    "active"
+  );
+
+  next.classList.add(
+    "active"
+  );
+
   currentScreen = id;
 
   vibrate(20);
@@ -33,51 +47,101 @@ function nextScreen(id) {
    CLOCK
 ========================= */
 
-function updateClock() {
-  const clock = document.getElementById("clock");
-  if (!clock) return;
+function updateClock(){
+
+  const clock =
+    document.getElementById(
+      "clock"
+    );
+
+  if(!clock) return;
 
   const now = new Date();
-  const time = now.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+
+  const time =
+    now.toLocaleTimeString(
+      [],
+      {
+        hour:"numeric",
+        minute:"2-digit"
+      }
+    );
+
   clock.innerText = time;
 }
 
-setInterval(updateClock, 1000);
+setInterval(updateClock,1000);
 updateClock();
 
 /* =========================
    OTP EXPERIENCE
 ========================= */
 
-const otpInputs = document.querySelectorAll(".otp-digit");
+const otpInputs =
+document.querySelectorAll(
+  ".otp-digit"
+);
 
-otpInputs.forEach((input, index) => {
-  input.addEventListener("input", () => {
-    input.value = input.value.replace(/\D/g, "");
+otpInputs.forEach(
+(input,index)=>{
 
-    if (input.value && otpInputs[index + 1]) {
-      otpInputs[index + 1].focus();
+  input.addEventListener(
+    "input",
+    ()=>{
+
+      input.value =
+      input.value.replace(
+        /\D/g,
+        ""
+      );
+
+      if(
+        input.value &&
+        otpInputs[index+1]
+      ){
+        otpInputs[index+1]
+        .focus();
+      }
+
+      checkOTPComplete();
     }
+  );
 
-    checkOTPComplete();
-  });
+  input.addEventListener(
+    "keydown",
+    (e)=>{
 
-  input.addEventListener("keydown", (e) => {
-    if (e.key === "Backspace" && !input.value && otpInputs[index - 1]) {
-      otpInputs[index - 1].focus();
+      if(
+        e.key==="Backspace" &&
+        !input.value &&
+        otpInputs[index-1]
+      ){
+
+        otpInputs[index-1]
+        .focus();
+      }
     }
-  });
+  );
 });
 
-function checkOTPComplete() {
-  const code = [...otpInputs].map((i) => i.value).join("");
+function checkOTPComplete(){
 
-  if (code.length === 6) {
-    showToast("✓ Verified");
-    vibrate([100, 50, 100]);
-    setTimeout(() => {
+  const code =
+  [...otpInputs]
+  .map(i=>i.value)
+  .join("");
+
+  if(code.length===6){
+
+    showToast(
+      "✓ Verified"
+    );
+
+    vibrate([100,50,100]);
+
+    setTimeout(()=>{
       nextScreen(4);
-    }, 900);
+    },900);
   }
 }
 
@@ -85,92 +149,180 @@ function checkOTPComplete() {
    OTP TIMER
 ========================= */
 
-function startResendTimer() {
-  clearInterval(resendInterval);
+function startResendTimer(){
+
+  clearInterval(
+    resendInterval
+  );
 
   let seconds = 48;
-  const timer = document.getElementById("resendTimer");
 
-  resendInterval = setInterval(() => {
-    const mins = String(Math.floor(seconds / 60)).padStart(2, "0");
-    const secs = String(seconds % 60).padStart(2, "0");
+  const timer =
+  document.getElementById(
+    "resendTimer"
+  );
 
-    if (timer) {
-      timer.innerText = `Resend in ${mins}:${secs}`;
+  resendInterval =
+  setInterval(()=>{
+
+    const mins =
+      String(
+        Math.floor(
+          seconds/60
+        )
+      ).padStart(2,"0");
+
+    const secs =
+      String(
+        seconds%60
+      ).padStart(2,"0");
+
+    if(timer){
+      timer.innerText =
+      `Resend in ${mins}:${secs}`;
     }
 
     seconds--;
 
-    if (seconds < 0) {
-      clearInterval(resendInterval);
-      if (timer) timer.innerText = "Resend available";
+    if(seconds < 0){
+
+      clearInterval(
+        resendInterval
+      );
+
+      timer.innerText =
+      "Resend available";
     }
-  }, 1000);
+
+  },1000);
 }
 
 startResendTimer();
 
-document.getElementById("resendBtn")?.addEventListener("click", () => {
-  showToast("OTP Sent");
-  startResendTimer();
-});
+document
+.getElementById(
+  "resendBtn"
+)
+?.addEventListener(
+  "click",
+  ()=>{
+
+    showToast(
+      "OTP Sent"
+    );
+
+    startResendTimer();
+  }
+);
 
 /* =========================
    ETA SELECTION
 ========================= */
 
-function setETA(minutes, event) {
+function setETA(minutes){
+
   selectedETA = minutes;
 
-  const buttons = document.querySelectorAll(".eta-buttons button");
-  buttons.forEach((btn) => {
-    btn.style.opacity = 0.5;
-  });
+  const buttons =
+  document.querySelectorAll(
+    ".eta-buttons button"
+  );
 
-  if (event && event.target) {
-    event.target.style.opacity = 1;
-  }
+  buttons.forEach(
+    btn=>{
+      btn.style.opacity = .5;
+    }
+  );
 
-  showToast(`${minutes} mins selected`);
+  event.target.style.opacity = 1;
+
+  showToast(
+    `${minutes} mins selected`
+  );
 }
 
 /* =========================
    LIVE TRACKING
 ========================= */
 
-function startTracking() {
+function startTracking(){
+
   nextScreen(8);
 
-  let seconds = selectedETA * 60;
-  updateTrackingTimer(seconds);
+  let seconds =
+  selectedETA * 60;
 
-  clearInterval(trackingInterval);
+  updateTrackingTimer(
+    seconds
+  );
 
-  trackingInterval = setInterval(() => {
+  clearInterval(
+    trackingInterval
+  );
+
+  trackingInterval =
+  setInterval(()=>{
+
     seconds--;
-    updateTrackingTimer(seconds);
 
-    if (seconds <= 0) {
-      clearInterval(trackingInterval);
+    updateTrackingTimer(
+      seconds
+    );
+
+    if(seconds <= 0){
+
+      clearInterval(
+        trackingInterval
+      );
+
       nextScreen(9);
-      showToast("Trip completed");
+
+      showToast(
+        "Trip completed"
+      );
     }
-  }, 1000);
+
+  },1000);
 }
 
-function updateTrackingTimer(totalSeconds) {
-  const timer = document.getElementById("timer");
-  if (!timer) return;
+function updateTrackingTimer(
+  totalSeconds
+){
 
-  const mins = Math.floor(totalSeconds / 60);
-  const secs = totalSeconds % 60;
+  const timer =
+  document.getElementById(
+    "timer"
+  );
 
-  timer.innerText = `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
+  if(!timer) return;
+
+  const mins =
+  Math.floor(
+    totalSeconds/60
+  );
+
+  const secs =
+  totalSeconds%60;
+
+  timer.innerText =
+  `${String(mins)
+    .padStart(2,"0")}
+  :
+  ${String(secs)
+    .padStart(2,"0")}`
+    .replace(/\s/g,'');
 }
 
-function arrivedSafely() {
-  clearInterval(trackingInterval);
-  showToast("Contacts notified");
+function arrivedSafely(){
+
+  clearInterval(
+    trackingInterval
+  );
+
+  showToast(
+    "Contacts notified"
+  );
+
   nextScreen(9);
 }
 
@@ -178,96 +330,206 @@ function arrivedSafely() {
    SOS HOLD RING
 ========================= */
 
-const sosButton = document.getElementById("sosBtn");
-const progressCircle = document.getElementById("progressCircle");
+const sosButton =
+document.getElementById(
+  "sosBtn"
+);
+
+const progressCircle =
+document.getElementById(
+  "progressCircle"
+);
+
 const circumference = 276;
 
 let progress = 0;
 let holdStart;
 
-if (sosButton) {
-  ["mousedown", "touchstart"].forEach((evt) => {
-    sosButton.addEventListener(evt, startHold);
+if(sosButton){
+
+  [
+    "mousedown",
+    "touchstart"
+  ].forEach(evt=>{
+
+    sosButton
+    .addEventListener(
+      evt,
+      startHold
+    );
+
   });
 
-  ["mouseup", "mouseleave", "touchend"].forEach((evt) => {
-    sosButton.addEventListener(evt, cancelHold);
+  [
+    "mouseup",
+    "mouseleave",
+    "touchend"
+  ].forEach(evt=>{
+
+    sosButton
+    .addEventListener(
+      evt,
+      cancelHold
+    );
+
   });
 }
 
-function startHold() {
-  if (!progressCircle) return;
+function startHold(){
 
-  holdStart = Date.now();
-  sosButton?.classList.add("holding");
+  holdStart =
+    Date.now();
 
-  holdTimer = setInterval(() => {
-    const elapsed = Date.now() - holdStart;
-    progress = Math.min(elapsed / HOLD_DURATION, 1);
+  sosButton.classList.add(
+    "holding"
+  );
 
-    const offset = circumference - circumference * progress;
-    progressCircle.style.strokeDashoffset = offset;
+  holdTimer =
+  setInterval(()=>{
 
-    if (progress >= 1) {
-      clearInterval(holdTimer);
+    const elapsed =
+      Date.now()
+      - holdStart;
+
+    progress =
+      Math.min(
+        elapsed /
+        HOLD_DURATION,
+        1
+      );
+
+    const offset =
+      circumference -
+      (
+        circumference
+        * progress
+      );
+
+    progressCircle
+    .style
+    .strokeDashoffset =
+      offset;
+
+    if(progress >= 1){
+
+      clearInterval(
+        holdTimer
+      );
+
       activateSOS();
     }
-  }, 16);
+
+  },16);
 
   vibrate(40);
 }
 
-function cancelHold() {
-  clearInterval(holdTimer);
+function cancelHold(){
+
+  clearInterval(
+    holdTimer
+  );
+
   progress = 0;
 
-  if (progressCircle) {
-    progressCircle.style.strokeDashoffset = circumference;
+  if(progressCircle){
+
+    progressCircle
+    .style
+    .strokeDashoffset =
+      circumference;
   }
 
-  sosButton?.classList.remove("holding");
+  sosButton?.classList
+  .remove(
+    "holding"
+  );
 }
 
 /* =========================
    SOS FLOW
 ========================= */
 
-function activateSOS() {
-  clearInterval(trackingInterval);
+function activateSOS(){
 
   nextScreen(10);
-  showToast("SOS Activated");
-  vibrate([200, 100, 200]);
+
+  showToast(
+    "SOS Activated"
+  );
+
+  vibrate([
+    200,
+    100,
+    200
+  ]);
 
   let seconds = 165;
-  updateSOSTimer(seconds);
 
-  clearInterval(sosInterval);
+  updateSOSTimer(
+    seconds
+  );
 
-  sosInterval = setInterval(() => {
+  clearInterval(
+    sosInterval
+  );
+
+  sosInterval =
+  setInterval(()=>{
+
     seconds--;
-    updateSOSTimer(seconds);
 
-    if (seconds <= 0) {
-      clearInterval(sosInterval);
+    updateSOSTimer(
+      seconds
+    );
+
+    if(seconds<=0){
+
+      clearInterval(
+        sosInterval
+      );
+
       nextScreen(11);
     }
-  }, 1000);
+
+  },1000);
 }
 
-function updateSOSTimer(seconds) {
-  const el = document.getElementById("sosTimer");
-  if (!el) return;
+function updateSOSTimer(
+  seconds
+){
 
-  const mins = String(Math.floor(seconds / 60)).padStart(2, "0");
-  const secs = String(seconds % 60).padStart(2, "0");
+  const el =
+  document.getElementById(
+    "sosTimer"
+  );
 
-  el.innerText = `${mins}:${secs}`;
+  if(!el) return;
+
+  const mins =
+  Math.floor(
+    seconds/60
+  );
+
+  const secs =
+  String(
+    seconds%60
+  ).padStart(2,"0");
+
+  el.innerText =
+    `${mins}:${secs}`;
 }
 
-function cancelSOS() {
-  clearInterval(sosInterval);
-  showToast("Emergency cancelled");
+function cancelSOS(){
+
+  clearInterval(
+    sosInterval
+  );
+
+  showToast(
+    "Emergency cancelled"
+  );
+
   nextScreen(12);
 }
 
@@ -275,9 +537,15 @@ function cancelSOS() {
    HAPTICS
 ========================= */
 
-function vibrate(pattern) {
-  if (navigator.vibrate) {
-    navigator.vibrate(pattern);
+function vibrate(pattern){
+
+  if(
+    navigator.vibrate
+  ){
+
+    navigator.vibrate(
+      pattern
+    );
   }
 }
 
@@ -285,45 +553,71 @@ function vibrate(pattern) {
    TOAST SYSTEM
 ========================= */
 
-let activeToast = null;
+function showToast(text){
 
-function showToast(text) {
-  if (activeToast) {
-    activeToast.remove();
-    activeToast = null;
-  }
+  const toast =
+  document.createElement(
+    "div"
+  );
 
-  const toast = document.createElement("div");
-  toast.className = "toast";
-  toast.innerText = text;
+  toast.className =
+  "toast";
 
-  document.body.appendChild(toast);
-  activeToast = toast;
+  toast.innerText =
+  text;
 
-  requestAnimationFrame(() => {
-    toast.classList.add("show");
-  });
+  document.body
+  .appendChild(
+    toast
+  );
 
-  setTimeout(() => {
+  setTimeout(()=>{
+
+    toast.classList.add(
+      "show"
+    );
+
+  },10);
+
+  setTimeout(()=>{
+
     toast.remove();
-    if (activeToast === toast) activeToast = null;
-  }, 2500);
+
+  },2500);
 }
 
 /* =========================
    PWA INSTALL
 ========================= */
 
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("./service-worker.js");
-  });
+if(
+  "serviceWorker"
+  in navigator
+){
+
+  window.addEventListener(
+    "load",
+    ()=>{
+
+      navigator
+      .serviceWorker
+      .register(
+        "./service-worker.js"
+      );
+
+    }
+  );
 }
 
 /* =========================
    INIT
 ========================= */
 
-window.addEventListener("load", () => {
-  nextScreen(1);
-});
+window.addEventListener(
+  "load",
+  ()=>{
+
+    nextScreen(1);
+
+  }
+);
