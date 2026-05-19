@@ -657,3 +657,41 @@ circle:first-child{
   }
 
 }
+
+.toast{
+  position:fixed;
+  bottom:40px;
+  left:50%;
+  transform:
+    translateX(-50%)
+    translateY(40px);
+
+  background:
+    rgba(8,17,32,.95);
+
+  color:white;
+
+  padding:14px 20px;
+
+  border-radius:18px;
+
+  border:
+    1px solid
+    rgba(255,255,255,.08);
+
+  backdrop-filter:
+    blur(20px);
+
+  opacity:0;
+  transition:.3s ease;
+
+  z-index:9999;
+}
+
+.toast.show{
+  opacity:1;
+
+  transform:
+    translateX(-50%)
+    translateY(0);
+}
