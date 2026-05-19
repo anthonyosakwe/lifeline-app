@@ -184,9 +184,12 @@ box-sizing:border-box;
   inset:0;
 
   opacity:0;
+
   transform:
-    translateX(100px)
-    scale(.97);
+    translateX(100%)
+    scale(.98);
+
+  visibility:hidden;
 
   pointer-events:none;
 
@@ -200,6 +203,9 @@ box-sizing:border-box;
   display:flex;
   flex-direction:column;
   justify-content:center;
+
+  width:100%;
+  overflow:hidden;
 }
 
 .screen.active{
@@ -209,7 +215,11 @@ box-sizing:border-box;
     translateX(0)
     scale(1);
 
+  visibility:visible;
+
   pointer-events:auto;
+
+  z-index:10;
 }
 
 /* =========================
@@ -474,13 +484,17 @@ button:active{
 
 .safe-btn{
   width:100%;
+  max-width:100%;
+
   padding:20px;
   margin-top:26px;
 
   position:relative;
-  z-index:5;
+  z-index:20;
 
-  display:block;
+  display:flex;
+  justify-content:center;
+  align-items:center;
 
   background:
     linear-gradient(
@@ -490,6 +504,8 @@ button:active{
     );
 
   color:#031017;
+
+  border-radius:28px;
 }
 
 .sos-btn{
@@ -723,6 +739,16 @@ input,
 .glass-card,
 .contact-card{
   max-width:100%;
+}
+
+.phone-frame,
+.screen,
+.content{
+  overflow-x:hidden;
+}
+
+body{
+  overflow-x:hidden;
 }
 
 .tracking-card{
